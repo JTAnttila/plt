@@ -54,4 +54,9 @@ class TestPigLatin(unittest.TestCase):
         piglatin = PigLatin("hello world")
         self.assertEqual(piglatin.translate(), "ellohay orldway")
 
+    # The translation of “well-being” is “ellway-eingbay”
+    def test_translate_composite_words(self):
+        piglatin = PigLatin("well-being")
+        self.assertEqual(piglatin.translate(), "ellway-eingbay")
+
 

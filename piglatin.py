@@ -14,21 +14,26 @@ class PigLatin:
         translated_words = []
 
         for word in words:
-            if word[0].lower() in 'aeiou':
-                if word[-1].lower() == 'y':
-                    translated_words.append(word + "nay")
-                elif word[-1].lower() in 'aeiou':
-                    translated_words.append(word + "yay")
-                else:
-                    translated_words.append(word + "ay")
-            else:
-                # Handle words starting with one or more consonants
-                consonant_cluster = ""
-                for char in word:
-                    if char.lower() not in 'aeiou':
-                        consonant_cluster += char
+            subwords = word.split('-')
+            translated_subwords = []
+
+            for subword in subwords:
+                if subword[0].lower() in 'aeiou':
+                    if subword[-1].lower() == 'y':
+                        translated_subwords.append(subword + "nay")
+                    elif subword[-1].lower() in 'aeiou':
+                        translated_subwords.append(subword + "yay")
                     else:
-                        break
-                translated_words.append(word[len(consonant_cluster):] + consonant_cluster + "ay")
+                        translated_subwords.append(subword + "ay")
+                else:
+                    consonant_cluster = ""
+                    for char in subword:
+                        if char.lower() not in 'aeiou':
+                            consonant_cluster += char
+                        else:
+                            break
+                    translated_subwords.append(subword[len(consonant_cluster):] + consonant_cluster + "ay")
+
+            translated_words.append('-'.join(translated_subwords))
 
         return ' '.join(translated_words)
