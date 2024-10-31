@@ -54,9 +54,18 @@ class TestPigLatin(unittest.TestCase):
         piglatin = PigLatin("hello world")
         self.assertEqual(piglatin.translate(), "ellohay orldway")
 
+    # Implement PigLatin.translate(self) -> str to let the translator translate a phrase containing more words, as well as composite words.
     # The translation of “well-being” is “ellway-eingbay”
     def test_translate_composite_words(self):
         piglatin = PigLatin("well-being")
         self.assertEqual(piglatin.translate(), "ellway-eingbay")
+
+    # The input phrase can contain punctuation marks. In that case, the translator applies the translation rules to the single and composite words while preserving the punctuation marks. Only the following punctuation marks are allowed: point, comma, semi-colon, colon, apostrophe, question mark, exclamation mark, and round parenthesis.
+    # Implement PigLatin.translate(self) -> str to let the translator translate a phrase containing the allowed punctuation marks. For punctuation marks not allowed, raise a PigLatinError.
+    # The translation of “hello world!” is “ellohay orldway!”.
+    def test_translate_punctuation_marks(self):
+        piglatin = PigLatin("hello world!")
+        # take account that the punctuation mark is not allowed then create an error into error.py to pass this test
+        self.assertEqual(piglatin.translate(), "ellohay orldway!")
 
 

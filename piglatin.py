@@ -1,4 +1,9 @@
+import re
+from error import PigLatinError
+
 class PigLatin:
+
+    ALLOWED_PUNCTUATION = {'.', ',', ';', ':', '\'', '?', '!', '(', ')', '-'}
 
     def __init__(self, phrase: str):
         self.phrase = phrase
@@ -10,30 +15,44 @@ class PigLatin:
         if self.phrase == "":
             return "nil"
 
-        words = self.phrase.split()
+        # Check for disallowed punctuation marks
+        for char in self.phrase:
+            if not char.isalnum() and char not in self.ALLOWED_PUNCTUATION and not char.isspace():
+                raise PigLatinError(f"Disallowed punctuation mark: {char}")
+
+        words = re.findall(r'\b\w+[-\w]*\b|[^\w\s]', self.phrase)
         translated_words = []
 
         for word in words:
-            subwords = word.split('-')
-            translated_subwords = []
-
-            for subword in subwords:
-                if subword[0].lower() in 'aeiou':
-                    if subword[-1].lower() == 'y':
-                        translated_subwords.append(subword + "nay")
-                    elif subword[-1].lower() in 'aeiou':
-                        translated_subwords.append(subword + "yay")
-                    else:
-                        translated_subwords.append(subword + "ay")
+            if re.match(r'\w', word):
+                if '-' in word:
+                    subwords = word.split('-')
+                    translated_subwords = [self._translate_word(subword) for subword in subwords]
+                    translated_words.append('-'.join(translated_subwords))
                 else:
-                    consonant_cluster = ""
-                    for char in subword:
-                        if char.lower() not in 'aeiou':
-                            consonant_cluster += char
-                        else:
-                            break
-                    translated_subwords.append(subword[len(consonant_cluster):] + consonant_cluster + "ay")
+                    translated_words.append(self._translate_word(word))
+            else:
+                translated_words.append(word)
 
-            translated_words.append('-'.join(translated_subwords))
+        # Join words with spaces, preserving punctuation marks
+        result = ''.join(
+            ' ' + word if re.match(r'\w', word) else word for word in translated_words
+        ).strip()
+        return result
 
-        return ' '.join(translated_words)
+    def _translate_word(self, word: str) -> str:
+        if word[0].lower() in 'aeiou':
+            if word[-1].lower() == 'y':
+                return word + "nay"
+            elif word[-1].lower() in 'aeiou':
+                return word + "yay"
+            else:
+                return word + "ay"
+        else:
+            consonant_cluster = ""
+            for char in word:
+                if char.lower() not in 'aeiou':
+                    consonant_cluster += char
+                else:
+                    break
+            return word[len(consonant_cluster):] + consonant_cluster + "ay"
