@@ -9,4 +9,20 @@ class PigLatin:
     def translate(self) -> str:
         if self.phrase == "":
             return "nil"
-        # Additional translation logic will be added here for other user stories
+
+        words = self.phrase.split()
+        translated_words = []
+
+        for word in words:
+            if word[0].lower() in 'aeiou':
+                if word[-1].lower() == 'y':
+                    translated_words.append(word + "nay")
+                elif word[-1].lower() in 'aeiou':
+                    translated_words.append(word + "yay")
+                else:
+                    translated_words.append(word + "ay")
+            else:
+                # Additional logic for words starting with consonants will be added here
+                pass
+
+        return ' '.join(translated_words)

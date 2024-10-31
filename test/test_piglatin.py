@@ -14,3 +14,12 @@ class TestPigLatin(unittest.TestCase):
     def test_translate_empty_string(self):
         piglatin = PigLatin("")
         self.assertEqual(piglatin.translate(), "nil")
+
+    # The input phrase can be a single word starting with a vowel. In that case, the translator applies to following translation rules:
+    # If the word ends with "y", append “nay” to the and of the word.
+    # If the word ends with a vowel, append “yay” to the and of the word.
+    # If the word ends with a consonant, append “ay” to the and of the word.
+    # The translation of “any” is “anynay”.
+    def test_translate_single_word_starting_with_vowel(self):
+        piglatin = PigLatin("any")
+        self.assertEqual(piglatin.translate(), "anynay")
