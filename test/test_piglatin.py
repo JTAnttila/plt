@@ -1,9 +1,10 @@
 import unittest
 from piglatin import PigLatin
-from error import PigLatinError
 
 
 class TestPigLatin(unittest.TestCase):
 
-    def test_something(self):
-        pass
+    # The translator takes as the input the phrase “hello world”. Anyone gets the input phrase: “hello world”.
+    def test_get_phrase(self):
+        piglatin = PigLatin("hello world")
+        self.assertEqual(piglatin.get_phrase(), "hello world")
