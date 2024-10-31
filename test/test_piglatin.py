@@ -68,4 +68,12 @@ class TestPigLatin(unittest.TestCase):
         # take account that the punctuation mark is not allowed then create an error into error.py to pass this test
         self.assertEqual(piglatin.translate(), "ellohay orldway!")
 
+    # The input phrase can contain upper- and title-case words. In those cases, the translator applies the translation rules to the single and composite words while preserving the upper- and title-cases. Cases different from upper- and title-cases are not allowed (e.g., “biRd”).
+    # Requirement: Implement PigLatin.translate(self) -> str to let the translator translate a phrase containing upper- and title-case words. For cases different from upper- and title-cases, raise a PigLatinError.
+    # The translation of “APPLE” (upper case) is “APPLEYAY”.
+    def test_translate_upper_case(self):
+        piglatin = PigLatin("APPLE")
+        # take account that the case is not allowed then create an error into error.py to pass this test
+        self.assertEqual(piglatin.translate(), "APPLEYAY")
+
 

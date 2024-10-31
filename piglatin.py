@@ -41,6 +41,8 @@ class PigLatin:
         return result
 
     def _translate_word(self, word: str) -> str:
+        if word.isupper():
+            return self._translate_upper_case_word(word)
         if word[0].lower() in 'aeiou':
             if word[-1].lower() == 'y':
                 return word + "nay"
@@ -56,3 +58,20 @@ class PigLatin:
                 else:
                     break
             return word[len(consonant_cluster):] + consonant_cluster + "ay"
+
+    def _translate_upper_case_word(self, word: str) -> str:
+        if word[0] in 'AEIOU':
+            if word[-1] == 'Y':
+                return word + "NAY"
+            elif word[-1] in 'AEIOU':
+                return word + "YAY"
+            else:
+                return word + "AY"
+        else:
+            consonant_cluster = ""
+            for char in word:
+                if char not in 'AEIOU':
+                    consonant_cluster += char
+                else:
+                    break
+            return word[len(consonant_cluster):] + consonant_cluster + "AY"
