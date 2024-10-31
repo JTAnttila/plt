@@ -48,4 +48,10 @@ class TestPigLatin(unittest.TestCase):
         piglatin = PigLatin("known")
         self.assertEqual(piglatin.translate(), "ownknay")
 
+    # The input phrase can contain more words (separated by white spaces). In that case, the translator applies the translation rules (reported in User Stories 3-5) to the single words. Moreover, for composite words (those separated by a “-”), the translation rules apply to the single words.
+    # The translation of “hello world” is “ellohay orldway”.
+    def test_translate_multiple_words(self):
+        piglatin = PigLatin("hello world")
+        self.assertEqual(piglatin.translate(), "ellohay orldway")
+
 
