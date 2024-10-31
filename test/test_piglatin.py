@@ -23,3 +23,13 @@ class TestPigLatin(unittest.TestCase):
     def test_translate_single_word_starting_with_vowel(self):
         piglatin = PigLatin("any")
         self.assertEqual(piglatin.translate(), "anynay")
+
+    # The translation of “apple” is “appleyay”.
+    def test_translate_single_word_starting_with_vowel_ending_with_vowel(self):
+        piglatin = PigLatin("apple")
+        self.assertEqual(piglatin.translate(), "appleyay")
+
+    # The translation of “ask” is “askay”.
+    def test_translate_single_word_starting_with_vowel_ending_with_consonant(self):
+        piglatin = PigLatin("ask")
+        self.assertEqual(piglatin.translate(), "askay")
