@@ -7,4 +7,6 @@ class PigLatin:
         return self.phrase
 
     def translate(self) -> str:
-        pass
+        if self.phrase == "":
+            return "nil"
+        # Additional translation logic will be added here for other user stories
