@@ -76,4 +76,7 @@ class TestPigLatin(unittest.TestCase):
         # take account that the case is not allowed then create an error into error.py to pass this test
         self.assertEqual(piglatin.translate(), "APPLEYAY")
 
-
+    # The translation of “Hello” (title case) is “Ellohay”.
+    def test_translate_title_case(self):
+        piglatin = PigLatin("Hello")
+        self.assertEqual(piglatin.translate(), "Ellohay")
