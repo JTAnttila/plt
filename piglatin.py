@@ -22,7 +22,13 @@ class PigLatin:
                 else:
                     translated_words.append(word + "ay")
             else:
-                # Handle words starting with a consonant
-                translated_words.append(word[1:] + word[0] + "ay")
+                # Handle words starting with one or more consonants
+                consonant_cluster = ""
+                for char in word:
+                    if char.lower() not in 'aeiou':
+                        consonant_cluster += char
+                    else:
+                        break
+                translated_words.append(word[len(consonant_cluster):] + consonant_cluster + "ay")
 
         return ' '.join(translated_words)
